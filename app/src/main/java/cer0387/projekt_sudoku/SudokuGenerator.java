@@ -10,10 +10,7 @@ public class SudokuGenerator {
 
     private Random rand = new Random();
 
-    private SudokuGenerator()
-    {
-
-    }
+    private SudokuGenerator() {}
 
     public static SudokuGenerator vratInstanci()
     {
