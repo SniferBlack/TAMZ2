@@ -74,7 +74,46 @@ public class Bunky extends Fragment {
         textView.setTypeface(null, Typeface.BOLD);
     }
 
+    public boolean KontrolaVyskytuCtverec() {
+        ArrayList<Integer> cisla = new ArrayList<>();
+        int textViews[] = new int[]{    R.id.textView1,
+                R.id.textView2,
+                R.id.textView3,
+                R.id.textView4,
+                R.id.textView5,
+                R.id.textView6,
+                R.id.textView7,
+                R.id.textView8,
+                R.id.textView9
+        };
+        for (int textView1 : textViews) {
+            TextView textView = view.findViewById(textView1);
+            int cislo = Integer.parseInt(textView.getText().toString());
+            if (cisla.contains(cislo)) {
+                return false;
+            } else {
+                cisla.add(cislo);
+            }
+        }
+        return true;
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            myListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " neni implementovan OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        myListener = null;
+    }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(int groupId, int cellId, View view);
