@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".VyberObtiznosti" />
         <activity android:name=".Hra" />
-        <activity android:name=".Napoveda"></activity>
+        <activity android:name=".Napoveda" />
+        <activity android:name=".Bunky"></activity>
     </application>
 
 </manifest>
