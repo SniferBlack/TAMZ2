@@ -1,72 +1,20 @@
 package cer0387.projekt_sudoku;
 
-import java.util.ArrayList;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AnimationUtils;
 
-public class Mrizka {
-    private int[][] policka = new int[9][9];
+public class Mrizka extends View {
 
-    public Mrizka() {}
-
-    public void setHodnota(int radek, int sloupec, int hodnota) {
-        policka[radek][sloupec] = hodnota;
+    public Mrizka(Context context) {
+        super(context);
     }
-
-    public int[][] getPolicka() {
-        return policka;
-    }
-
-    public void kopieHodnoty(int[][] kopie) {
-        for (int i = 0; i < kopie.length; i++) {
-            for (int j = 0; j < kopie[i].length; j++) {
-                policka[i][j] = kopie[i][j];
-            }
-        }
-    }
-
-    public boolean Vyplneno() {
-        for (int i = 0; i < policka.length; i++) {
-            for (int j = 0; j < policka[i].length; j++) {
-                if (policka[i][j] == 0) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean KontrolaVyskytuVodoroveSvisle() {
-        /* vodorovne */
-        for (int i = 0; i < policka.length; i++) {
-            ArrayList<Integer> cisla = new ArrayList<>();
-            for (int j = 0; j < policka[i].length; j++) {
-                int cislo = policka[i][j];
-                if (cisla.contains(cislo)) {
-                    return false;
-                } else {
-                    cisla.add(cislo);
-                }
-            }
-        }
-
-        /* svisle */
-        for (int i = 0; i < policka.length; i++) {
-            ArrayList<Integer> cisla = new ArrayList<>();
-            for (int j = 0; j < policka[i].length; j++) {
-                int cislo = policka[j][i];
-                if (cisla.contains(cislo)) {
-                    return false;
-                } else {
-                    cisla.add(cislo);
-                }
-            }
-        }
-        /* ctverce se kontroluji v Bunky.java*/
-        return true;
-    }
-
-    public int getHodnota(int radek, int sloupec) {
-        return policka[radek][sloupec];
-    }
-
-    
 }

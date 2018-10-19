@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="obtiznost">
+        <item>@string/obtiznost_lehka</item>
+        <item>@string/obtiznost_normal</item>
+        <item>@string/obtiznost_tezka</item>
+    </string-array>
+</resources>

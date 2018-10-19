@@ -16,10 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VyberObtiznosti" />
         <activity android:name=".Hra" />
         <activity android:name=".Napoveda" />
-        <activity android:name=".Bunky"></activity>
+        <activity android:name=".Bunky" />
+        <activity android:name=".Nova_hra" />
+        <activity android:name=".VyberCisla" />
+        <activity android:name=".Klavesnice"></activity>
     </application>
 
 </manifest>

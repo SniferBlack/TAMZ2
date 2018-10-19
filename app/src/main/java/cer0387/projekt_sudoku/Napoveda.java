@@ -16,7 +16,6 @@ public class Napoveda extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_napoveda);
 
-
     }
 
     public void onZpetButtonClicked(View view) {

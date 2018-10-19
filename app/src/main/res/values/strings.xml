@@ -2,10 +2,14 @@
     <string name="app_name">SUDOKU - v0.1</string>
     <string name="sudoku">Sudoku</string>
 
-    <string name="nova_hra">Začni novou hru</string>
+    <string name="hra">Hrej!</string>
     <string name="pokracovat">Pokračovat</string>
     <string name="vysledky">Výsledky</string>
     <string name="napoveda">Nápověda</string>
+    <string name="konec">Konec</string>
+
+    <string name="klavesnice">Klávesnice</string>
+    <string name="zadne_pohyby">Žádné pohyby</string>
 
     <string name="instrukce_1">1. V sudoku je úkolem vyplnit všechny čtverce čísly. Čísla jsou od 1 do 9.</string>
     <string name="instrukce_2">2. Plocha je rozdělena do menších čtverců a uvnitř nich se musí vyskytovat každé číslo 1 až 9.</string>
@@ -19,9 +23,12 @@
     <string name="zacit_hru">Začni hru</string>
     <string name="vyber_cislo">Vyber číslo</string>
     <string name="vyber_umisteni">Vyber umístění</string>
+    <string name="oznacit_mozna">Označ pokud si nejsi jistý</string>
     <string name="umisti_cislo">Umísti číslo</string>
     <string name="smazat">Smazat</string>
     <string name="kontrola">Zkontrolovat</string>
     <string name="spravne">Správně</string>
     <string name="spatne">Špatně</string>
+    <string name="uspesna_nova_hra">Nova hra ulozena</string>
+    <string name="error_change">Nejde zmenit</string>
 </resources>
