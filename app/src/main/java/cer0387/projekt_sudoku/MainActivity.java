@@ -33,13 +33,13 @@ public class MainActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int obtiznost) {
+                                Toast.makeText(getApplicationContext(), "Začínáš novou hru", Toast.LENGTH_SHORT).show();
                                 startGame(obtiznost);
                             }
                         }).show();
     }
 
     private void startGame(int obtiznost) {
-        Toast.makeText(getApplicationContext(), "Začínáš novou hru", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Hra.class);
         intent.putExtra("obtiznost", obtiznost);
         startActivity(intent);
@@ -47,15 +47,11 @@ public class MainActivity extends Activity {
 
     public void onZacitNovouHruButtonClicked(View view) {
         openNewGameDialog();
-        /*Intent intent = new Intent(this, VyberObtiznosti.class);
-        startActivity(intent);*/
     }
 
     public void onPokracovatButtonClicked(View view) {
         Toast.makeText(getApplicationContext(), "Pokračuješ ve hře", Toast.LENGTH_SHORT).show();
         startGame(-1);
-        /*Intent intent = new Intent(this,Hra.class);
-        startActivity(intent);*/
     }
 
     public void onVysledkyButtonClicked(View view) {

@@ -4,5 +4,6 @@
         <item>@string/obtiznost_lehka</item>
         <item>@string/obtiznost_normal</item>
         <item>@string/obtiznost_tezka</item>
+        <item>@string/obtiznost_vlastni</item>
     </string-array>
 </resources>

@@ -5,15 +5,12 @@
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="oranzova">#FFA500</color>
 
-    <color name="background">#35ffff</color>
-    <color name="mrizka_background">#e6f0ff</color>
-    <color name="mrizka_napoveda">#ffffff</color>
-    <color name="mrizka_light">#c6d4ef</color>
-    <color name="mrizka_dark">#56648f</color>
-    <color name="mrizka_foreground">#ff0000</color>
-    <color name="mrizka_napoveda_0">#64ff00</color>
-    <color name="mrizka_napoveda_1">#64ff80</color>
-    <color name="mrizka_napoveda_2">#20ff80</color>
-    <color name="mrizka_vybrane">#64ff80</color>
+    <color name="background">#FFFFFF</color>
+    <color name="mrizka_background">#FFFFFF</color>
+    <color name="vnitrniMrizka">#000000</color>
+    <color name="ctverceMrizka">#FFA500</color>
+    <color name="mrizka_cisla">#000000</color>
+    <color name="mrizka_vybrane">#FF0000</color>
 </resources>

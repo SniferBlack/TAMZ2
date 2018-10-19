@@ -106,6 +106,7 @@
         android:layout_marginBottom="8dp"
         android:allowUndo="true"
         android:text="@string/sudoku"
+        android:textColor="@color/black"
         android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
