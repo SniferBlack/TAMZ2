@@ -21,10 +21,16 @@
     <string name="obtiznost_normal">Normalní</string>
     <string name="obtiznost_tezka">Těžká</string>
     <string name="obtiznost_vlastni">Vlastní</string>
+
     <string name="zacit_hru">Začni hru</string>
     <string name="kontrola">Zkontrolovat</string>
     <string name="spravne">Správně</string>
     <string name="spatne">Špatně</string>
     <string name="uspesna_nova_hra">Nova hra ulozena</string>
     <string name="error_change">Nejde zmenit</string>
+
+    <string name="vyhra">Vyhrál si!</string>
+    <string name="vyhra_zprava">Prosím vyplň svůj nick a pod ním se uloží tvoje skóre do výsledků.</string>
+    <string name="napis_nick">Napiš nick</string>
+    <string name="domu">Zpět do hlavního menu</string>
 </resources>

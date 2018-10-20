@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void openNewGameDialog() {
+    private void vyberObtiznosti() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.vyber_obtiznost)
                 .setItems(R.array.obtiznost,
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
     }
 
     public void onZacitNovouHruButtonClicked(View view) {
-        openNewGameDialog();
+        vyberObtiznosti();
     }
 
     public void onPokracovatButtonClicked(View view) {

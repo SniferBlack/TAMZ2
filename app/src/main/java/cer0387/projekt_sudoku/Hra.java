@@ -1,11 +1,17 @@
 package cer0387.projekt_sudoku;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Hra extends Activity {
 
@@ -18,6 +24,8 @@ public class Hra extends Activity {
     private int[] VyplnenaCisla;
     private final int[][][] SpatneCisla = new int[9][9][];
 
+    Timer T;
+    int counter_time=0;
     private Mrizka mrizka;
 
     private final String lehkaHra = "360000000004230800000004200"
@@ -51,6 +59,13 @@ public class Hra extends Activity {
         setContentView(mrizka);
         mrizka.requestFocus();
 
+        T=new Timer();
+        T.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                counter_time++;
+            }
+        }, 1000, 1000000000);
     }
 
     private int[] getPole(int obtiznost) {
@@ -119,7 +134,19 @@ public class Hra extends Activity {
         KontrolaHodnot();
 
         /* ulozeni do preferenci stringu cisel*/
+        if(konecHry())
+        {
+            int skore = counter_time;
+            Intent intent = new Intent(this, ZapsatSkore.class);
+            intent.putExtra("skore", skore);
+            startActivity(intent);
+        }
 
+        if(counter_time==1000000000)
+        {
+            Toast.makeText(getApplicationContext(), "Prekrocil si stanoveny limit pro jednu hru!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         return true;
     }
 
@@ -135,7 +162,7 @@ public class Hra extends Activity {
             }
         }
     }
-
+    
     private int[] KontrolaHodnot(int x, int y) {
         int pole[] = new int[9];
         /*vodorovne*/
@@ -195,6 +222,18 @@ public class Hra extends Activity {
             return "";
         else
             return String.valueOf(bunka);
+    }
+
+    private boolean konecHry()
+    {
+        for(int i=0; i < VyplnenaCisla.length; i++)
+        {
+            if(VyplnenaCisla[i]==0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

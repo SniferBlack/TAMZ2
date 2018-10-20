@@ -21,7 +21,9 @@
         <activity android:name=".Bunky" />
         <activity android:name=".Nova_hra" />
         <activity android:name=".VyberCisla" />
-        <activity android:name=".Klavesnice"></activity>
+        <activity android:name=".Klavesnice" />
+        <activity android:name=".ZapsatSkore" />
+        <activity android:name=".Vysledky"></activity>
     </application>
 
 </manifest>
