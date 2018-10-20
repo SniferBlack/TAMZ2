@@ -18,15 +18,11 @@ public class Vysledky extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vysledky);
 
-        int skore = getIntent().getIntExtra("skore", -1);
+        long cas = getIntent().getLongExtra("cas", -1);
         String nick = getIntent().getStringExtra("nick");
-        if(skore==-1)
+        if(cas!=-1)
         {
-            Toast.makeText(getApplicationContext(), "Doslu k chybě při přenosu skore - kontaktujte developera", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), "Nick: "+nick+", skore: "+skore, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Nick: "+nick+", skore: "+cas, Toast.LENGTH_LONG).show();
         }
 
         /*

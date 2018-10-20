@@ -12,7 +12,7 @@ public class ZapsatSkore extends Activity {
 
     EditText editTextViewNick;
     private String nick;
-    private int skore;
+    private long cas;
     TextView vypis_skore;
 
     @Override
@@ -20,16 +20,16 @@ public class ZapsatSkore extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zapsat_skore);
 
-        int getSkore = getIntent().getIntExtra("skore", -1);
-        if(getSkore==-1)
+        long getCas = getIntent().getLongExtra("cas", -1);
+        if(getCas==-1)
         {
             Toast.makeText(getApplicationContext(), "Doslu k chybě při přenosu skore - kontaktujte developera", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            skore=getSkore;
+            cas=getCas;
             vypis_skore=findViewById(R.id.textView7);
-            vypis_skore.setText("Skore: "+skore);
+            vypis_skore.setText("Skore: "+(cas/1000)+" sekund");
         }
 
     }
@@ -40,7 +40,7 @@ public class ZapsatSkore extends Activity {
         Toast.makeText(getApplicationContext(), "Pokracujes do vysledku...", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Vysledky.class);
         intent.putExtra("nick", nick);
-        intent.putExtra("skore", skore);
+        intent.putExtra("cas", cas);
         startActivity(intent);
     }
 }

@@ -6,12 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Hra extends Activity {
 
@@ -24,8 +24,12 @@ public class Hra extends Activity {
     private int[] VyplnenaCisla;
     private final int[][][] SpatneCisla = new int[9][9][];
 
-    Timer T;
-    int counter_time=0;
+    private long startTime = 0L;
+    private Handler customHandler = new Handler();
+    long timeInMilliseconds = 0L;
+    long timeSwapBuff = 0L;
+    long updatedTime = 0L;
+
     private Mrizka mrizka;
 
     private final String lehkaHra = "360000000004230800000004200"
@@ -38,7 +42,6 @@ public class Hra extends Activity {
             + "859761423426853791713924856" + "961537284287419635345286179";
 
     private boolean ROZEHRANA=false;
-    private String ULOZENA_HRA = "";
     protected static final int POKRACOVANI = -1;
 
     SharedPreferences mySharedHra1;
@@ -70,7 +73,7 @@ public class Hra extends Activity {
 
         if(ROZEHRANA)
         {
-            if(counter_time ==-1) {
+            if(updatedTime ==-1) {
                 Toast toast = Toast.makeText(this, "Nastala chyba s nacitanim casu, mas vyresetovane skore! Buď rád.",Toast.LENGTH_SHORT);
             }
 
@@ -82,13 +85,8 @@ public class Hra extends Activity {
         mySharedEditor2.putString("cisla",PoleDoStringu(VyplnenaCisla));
         mySharedEditor2.apply();
 
-        T=new Timer();
-        T.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                counter_time++;
-            }
-        }, 1000, 1000000000);
+        startTime = SystemClock.uptimeMillis();
+        customHandler.postDelayed(updateTimerThread, 0);
     }
 
     private int[] getPole(int obtiznost) {
@@ -96,7 +94,7 @@ public class Hra extends Activity {
         switch (obtiznost) {
             case POKRACOVANI:
                 ROZEHRANA=true;
-                counter_time = getIntent().getIntExtra("skore", -1);
+                updatedTime = getIntent().getLongExtra("cas", -1);
                 String cisla = getIntent().getStringExtra("cisla");
                 string = cisla;
                 break;
@@ -161,34 +159,34 @@ public class Hra extends Activity {
 
         if(konecHry())
         {
-            int skore = counter_time;
+            long cas = updatedTime;
 
             mySharedEditor3 = mySharedHra1.edit();
             mySharedEditor3.putBoolean("hra",false);
             mySharedEditor3.apply();
             mySharedEditor4 = mySharedCas1.edit();
-            mySharedEditor4.putInt("cas",0);
+            mySharedEditor4.putLong("cas",0);
             mySharedEditor4.apply();
             mySharedEditor5 = mySharedCisla1.edit();
             mySharedEditor5.putString("cisla","");
             mySharedEditor5.apply();
 
             Intent intent = new Intent(this, ZapsatSkore.class);
-            intent.putExtra("skore", skore);
+            intent.putExtra("cas", cas);
             startActivity(intent);
         }
         else
         {
             /* ulozeni do preferenci stringu cisel*/
             mySharedEditor3 = mySharedCas1.edit();
-            mySharedEditor3.putInt("cas",counter_time);
+            mySharedEditor3.putLong("cas",updatedTime);
             mySharedEditor3.apply();
             mySharedEditor4 = mySharedCisla1.edit();
             mySharedEditor4.putString("cisla",PoleDoStringu(VyplnenaCisla));
             mySharedEditor4.apply();
 
         }
-        if(counter_time==1000000000)
+        if(updatedTime==10e12)
         {
             Toast.makeText(getApplicationContext(), "Prekrocil si stanoveny limit pro jednu hru!", Toast.LENGTH_SHORT).show();
             finish();
@@ -281,5 +279,18 @@ public class Hra extends Activity {
         }
         return true;
     }
+
+    private Runnable updateTimerThread = new Runnable() {
+        public void run() {
+            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+            updatedTime = timeSwapBuff + timeInMilliseconds;
+            /*int secs = (int) (updatedTime / 1000);
+            int mins = secs / 60;
+            secs = secs % 60;
+            int milliseconds = (int) (updatedTime % 1000);
+            timerValue.setText("" + mins + ":" + String.format("%02d", secs) + ":" + String.format("%03d", milliseconds));*/
+            customHandler.postDelayed(this, 0);
+        }
+    };
 }
 

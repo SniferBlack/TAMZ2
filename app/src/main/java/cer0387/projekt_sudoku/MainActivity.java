@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     SharedPreferences.Editor mySharedEditor2;
 
     private String cisla;
-    private int skore;
+    private long cas;
     private boolean Hra;
 
     @Override
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
             Button pokracovat = findViewById(R.id.pokracovat);
             pokracovat.setVisibility(View.VISIBLE);
             cisla = mySharedCisla.getString("cisla","");
-            skore = mySharedCas.getInt("skore",-1);
+            cas = mySharedCas.getLong("cas",-1);
         }
         else
         {
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         if(Hra)
         {
             intent.putExtra("cisla", cisla);
-            intent.putExtra("skore", skore);
+            intent.putExtra("cas", cas);
         }
         else
         {
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
             mySharedEditor.putBoolean("hra",false);
             mySharedEditor.apply();
             mySharedEditor2 = mySharedCas.edit();
-            mySharedEditor2.putInt("cas",0);
+            mySharedEditor2.putLong("cas",0);
             mySharedEditor2.apply();
         }
         startActivity(intent);
@@ -95,8 +95,8 @@ public class MainActivity extends Activity {
 
     public void onVysledkyButtonClicked(View view) {
         Toast.makeText(getApplicationContext(), "Výsledky her", Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(this,Vysledky.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this,Vysledky.class);
+        startActivity(intent);
     }
 
     public void onNapovedaButtonClicked(View view) {
