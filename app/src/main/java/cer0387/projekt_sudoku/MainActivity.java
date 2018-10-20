@@ -2,26 +2,50 @@ package cer0387.projekt_sudoku;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 
 
 public class MainActivity extends Activity {
 
-    SharedPreferences Hra;
+    SharedPreferences mySharedHra;
+    SharedPreferences mySharedCisla;
+    SharedPreferences mySharedCas;
     SharedPreferences.Editor mySharedEditor;
+    SharedPreferences.Editor mySharedEditor2;
+
+    private String cisla;
+    private int skore;
+    private boolean Hra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mySharedHra = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        Hra = mySharedHra.getBoolean("hra",false);
+
+        mySharedCisla = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        mySharedCas = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        if(Hra)
+        {
+            Button pokracovat = findViewById(R.id.pokracovat);
+            pokracovat.setVisibility(View.VISIBLE);
+            cisla = mySharedCisla.getString("cisla","");
+            skore = mySharedCas.getInt("skore",-1);
+        }
+        else
+        {
+            Button pokracovat = findViewById(R.id.pokracovat);
+            pokracovat.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void vyberObtiznosti() {
@@ -34,6 +58,7 @@ public class MainActivity extends Activity {
                             public void onClick(DialogInterface dialog,
                                                 int obtiznost) {
                                 Toast.makeText(getApplicationContext(), "Začínáš novou hru", Toast.LENGTH_SHORT).show();
+                                Hra=false;
                                 startGame(obtiznost);
                             }
                         }).show();
@@ -42,6 +67,20 @@ public class MainActivity extends Activity {
     private void startGame(int obtiznost) {
         Intent intent = new Intent(this, Hra.class);
         intent.putExtra("obtiznost", obtiznost);
+        if(Hra)
+        {
+            intent.putExtra("cisla", cisla);
+            intent.putExtra("skore", skore);
+        }
+        else
+        {
+            mySharedEditor = mySharedHra.edit();
+            mySharedEditor.putBoolean("hra",false);
+            mySharedEditor.apply();
+            mySharedEditor2 = mySharedCas.edit();
+            mySharedEditor2.putInt("cas",0);
+            mySharedEditor2.apply();
+        }
         startActivity(intent);
     }
 

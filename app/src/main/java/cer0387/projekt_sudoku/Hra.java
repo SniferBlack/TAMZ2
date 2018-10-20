@@ -1,10 +1,10 @@
 package cer0387.projekt_sudoku;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,27 +37,50 @@ public class Hra extends Activity {
     private final String vlastniHra = "534678912672195348198342560"
             + "859761423426853791713924856" + "961537284287419635345286179";
 
-
+    private boolean ROZEHRANA=false;
     private String ULOZENA_HRA = "";
-    protected static final int OBTIZNOST_POKRACUJE = -1;
-    /*
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "NACTENO");
-    }
-    */
+    protected static final int POKRACOVANI = -1;
+
+    SharedPreferences mySharedHra1;
+    SharedPreferences mySharedCisla1;
+    SharedPreferences mySharedCas1;
+    SharedPreferences.Editor mySharedEditor1;
+    SharedPreferences.Editor mySharedEditor2;
+    SharedPreferences.Editor mySharedEditor3;
+    SharedPreferences.Editor mySharedEditor4;
+    SharedPreferences.Editor mySharedEditor5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d(TAG, "VYTVOREN LAYOUT");
         int obtiznost = getIntent().getIntExtra("obtiznost", OBTIZNOST_LEHKA);
+
+        mySharedHra1 = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        mySharedCisla1 = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        mySharedCas1 = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+
         VyplnenaCisla = getPole(obtiznost);
         KontrolaHodnot();
 
         mrizka = new Mrizka(this);
         setContentView(mrizka);
         mrizka.requestFocus();
+
+        if(ROZEHRANA)
+        {
+            if(counter_time ==-1) {
+                Toast toast = Toast.makeText(this, "Nastala chyba s nacitanim casu, mas vyresetovane skore! Buď rád.",Toast.LENGTH_SHORT);
+            }
+
+        }
+        mySharedEditor1 = mySharedHra1.edit();
+        mySharedEditor1.putBoolean("hra",true);
+        mySharedEditor1.apply();
+        mySharedEditor2 = mySharedCisla1.edit();
+        mySharedEditor2.putString("cisla",PoleDoStringu(VyplnenaCisla));
+        mySharedEditor2.apply();
 
         T=new Timer();
         T.scheduleAtFixedRate(new TimerTask() {
@@ -71,9 +94,11 @@ public class Hra extends Activity {
     private int[] getPole(int obtiznost) {
         String string;
         switch (obtiznost) {
-            case OBTIZNOST_POKRACUJE:
-                string = getPreferences(MODE_PRIVATE).getString(ULOZENA_HRA,
-                        lehkaHra);
+            case POKRACOVANI:
+                ROZEHRANA=true;
+                counter_time = getIntent().getIntExtra("skore", -1);
+                String cisla = getIntent().getStringExtra("cisla");
+                string = cisla;
                 break;
             case OBTIZNOST_NORMAL:
                 string = normalHra;
@@ -133,15 +158,36 @@ public class Hra extends Activity {
         setBunkaHodnota(X, Y, bunka);
         KontrolaHodnot();
 
-        /* ulozeni do preferenci stringu cisel*/
+
         if(konecHry())
         {
             int skore = counter_time;
+
+            mySharedEditor3 = mySharedHra1.edit();
+            mySharedEditor3.putBoolean("hra",false);
+            mySharedEditor3.apply();
+            mySharedEditor4 = mySharedCas1.edit();
+            mySharedEditor4.putInt("cas",0);
+            mySharedEditor4.apply();
+            mySharedEditor5 = mySharedCisla1.edit();
+            mySharedEditor5.putString("cisla","");
+            mySharedEditor5.apply();
+
             Intent intent = new Intent(this, ZapsatSkore.class);
             intent.putExtra("skore", skore);
             startActivity(intent);
         }
+        else
+        {
+            /* ulozeni do preferenci stringu cisel*/
+            mySharedEditor3 = mySharedCas1.edit();
+            mySharedEditor3.putInt("cas",counter_time);
+            mySharedEditor3.apply();
+            mySharedEditor4 = mySharedCisla1.edit();
+            mySharedEditor4.putString("cisla",PoleDoStringu(VyplnenaCisla));
+            mySharedEditor4.apply();
 
+        }
         if(counter_time==1000000000)
         {
             Toast.makeText(getApplicationContext(), "Prekrocil si stanoveny limit pro jednu hru!", Toast.LENGTH_SHORT).show();
@@ -162,7 +208,7 @@ public class Hra extends Activity {
             }
         }
     }
-    
+
     private int[] KontrolaHodnot(int x, int y) {
         int pole[] = new int[9];
         /*vodorovne*/

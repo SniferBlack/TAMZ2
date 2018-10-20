@@ -1,16 +1,16 @@
 package cer0387.projekt_sudoku;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
+
 
 public class Mrizka extends View {
 
@@ -23,10 +23,11 @@ public class Mrizka extends View {
     private static final String TAG = "Mrizka";
     private final Hra hra;
 
-    private static final String ULOZIT_X = "X";
-    private static final String ULOZIT_Y = "Y";
-    private static final String AKTUALNI_STAV = "aktualnistav";
     private static final int ID = 77;
+
+    SharedPreferences mySharedX;
+    SharedPreferences mySharedY;
+    SharedPreferences.Editor mySharedEditor;
 
     public Mrizka(Context context) {
         super(context);
@@ -35,26 +36,6 @@ public class Mrizka extends View {
         setFocusableInTouchMode(true);
         setId(ID);
     }
-
-    /*
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Parcelable p = super.onSaveInstanceState();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ULOZIT_X, X);
-        bundle.putInt(ULOZIT_Y, Y);
-        bundle.putParcelable(AKTUALNI_STAV, p);
-        Log.d(TAG, "X:" + X + ", Y:" + Y + " ULOZENO");
-        return p;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        Bundle bundle = (Bundle) state;
-        vyber(bundle.getInt(ULOZIT_X), bundle.getInt(ULOZIT_Y));
-        Log.d(TAG,"X:" + bundle.getInt(ULOZIT_X) + ", Y:" + bundle.getInt(ULOZIT_Y) + " RESTORED");
-        super.onRestoreInstanceState(bundle.getParcelable(AKTUALNI_STAV));
-    }*/
 
     @Override
     protected void onSizeChanged(int sirka, int vyska, int stara_sirka, int stara_vyska) {
@@ -180,7 +161,7 @@ public class Mrizka extends View {
     public void setVybranaBunka(int bunka) {
         if (hra.KontrolaHodnotySetBunka(X, Y, bunka)) {
             invalidate();
-            Log.d(TAG, "Nastavil si vybranou bunku : " + bunka);
+            Log.d(TAG, "Nastavil si vybranou bunku na : " + bunka);
 
         } else {
             Log.d(TAG, "Nemohl si nastavit : " + bunka);
