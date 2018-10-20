@@ -47,9 +47,9 @@ public class VysledekAdapter extends ArrayAdapter<Vysledek>{
             holder = (EntryHolder)row.getTag();
         }
 
-        Vysledek entry = data.get(position);
-        holder.txtNick.setText(entry.nick);
-        holder.txtSkore.setText(entry.skore);
+        Vysledek vysledky = data.get(position);
+        holder.txtNick.setText(vysledky.nick);
+        holder.txtSkore.setText(String.valueOf(vysledky.skore/1000)+" sekund");
 
         return row;
     }

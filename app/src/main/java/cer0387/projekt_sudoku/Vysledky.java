@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,16 +27,14 @@ public class Vysledky extends Activity {
             Toast.makeText(getApplicationContext(), "Nick: "+nick+", skore: "+cas, Toast.LENGTH_LONG).show();
         }
 
-        /*
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-        ListView listView = (ListView) findViewById(R.id.lvItems);
-        listView.setAdapter(itemsAdapter);
+        Vysledek novy = new Vysledek(nick,cas);
+        ArrayList<Vysledek> vysledky = new ArrayList<Vysledek>();
+        vysledky.add(novy);
 
-
-        VysledekAdapter itemsAdapter = new VysledekAdapter(this, R.layout.list_item_vysledek, items);
+        VysledekAdapter itemsAdapter = new VysledekAdapter(this, R.layout.list_item_vysledek, vysledky);
         ListView lv = (ListView)findViewById(R.id.listView1);
         lv.setAdapter(itemsAdapter);
-        */
+
     }
 
     public void onZpetButtonClicked(View view)

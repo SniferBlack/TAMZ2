@@ -29,6 +29,7 @@ public class Hra extends Activity {
     long timeInMilliseconds = 0L;
     long timeSwapBuff = 0L;
     long updatedTime = 0L;
+    private long pokracovani_cas=0;
 
     private Mrizka mrizka;
 
@@ -39,7 +40,7 @@ public class Hra extends Activity {
     private final String tezkaHra = "009000000080605020501078000"
             + "000000700706040102004000000" + "000720903090301080000000600";
     private final String vlastniHra = "534678912672195348198342560"
-            + "859761423426853791713924856" + "961537284287419635345286179";
+            + "859761423426853791713924856" + "961537284287419635345286170";
 
     private boolean ROZEHRANA=false;
     protected static final int POKRACOVANI = -1;
@@ -73,10 +74,10 @@ public class Hra extends Activity {
 
         if(ROZEHRANA)
         {
-            if(updatedTime ==-1) {
+            Log.d(TAG, "Rozehrana: " + ROZEHRANA);
+            if(updatedTime == -1) {
                 Toast toast = Toast.makeText(this, "Nastala chyba s nacitanim casu, mas vyresetovane skore! Buď rád.",Toast.LENGTH_SHORT);
             }
-
         }
         mySharedEditor1 = mySharedHra1.edit();
         mySharedEditor1.putBoolean("hra",true);
@@ -94,7 +95,8 @@ public class Hra extends Activity {
         switch (obtiznost) {
             case POKRACOVANI:
                 ROZEHRANA=true;
-                updatedTime = getIntent().getLongExtra("cas", -1);
+                pokracovani_cas = getIntent().getLongExtra("cas", -1);
+                Log.d(TAG, "pokracovani-cas-vlozeni: " + pokracovani_cas);
                 String cisla = getIntent().getStringExtra("cisla");
                 string = cisla;
                 break;
@@ -159,7 +161,8 @@ public class Hra extends Activity {
 
         if(konecHry())
         {
-            long cas = updatedTime;
+            long cas = updatedTime + pokracovani_cas;
+            Log.d(TAG, "konec-skore-cas: " + cas);
 
             mySharedEditor3 = mySharedHra1.edit();
             mySharedEditor3.putBoolean("hra",false);
@@ -179,7 +182,8 @@ public class Hra extends Activity {
         {
             /* ulozeni do preferenci stringu cisel*/
             mySharedEditor3 = mySharedCas1.edit();
-            mySharedEditor3.putLong("cas",updatedTime);
+            mySharedEditor3.putLong("cas",updatedTime+pokracovani_cas);
+            Log.d(TAG, "ulozeni-cas: " + updatedTime+pokracovani_cas);
             mySharedEditor3.apply();
             mySharedEditor4 = mySharedCisla1.edit();
             mySharedEditor4.putString("cisla",PoleDoStringu(VyplnenaCisla));
@@ -284,13 +288,10 @@ public class Hra extends Activity {
         public void run() {
             timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
             updatedTime = timeSwapBuff + timeInMilliseconds;
-            /*int secs = (int) (updatedTime / 1000);
-            int mins = secs / 60;
-            secs = secs % 60;
-            int milliseconds = (int) (updatedTime % 1000);
-            timerValue.setText("" + mins + ":" + String.format("%02d", secs) + ":" + String.format("%03d", milliseconds));*/
+
             customHandler.postDelayed(this, 0);
         }
     };
+
 }
 
