@@ -39,8 +39,13 @@ public class ZapsatSkore extends Activity {
         nick = editTextViewNick.getText().toString();
         Toast.makeText(getApplicationContext(), "Pokracujes do vysledku...", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Vysledky.class);
-        intent.putExtra("nick", nick);
-        intent.putExtra("cas", cas);
+        /*intent.putExtra("nick", nick);
+        intent.putExtra("cas", cas);*/
+        Player novy = new Player();
+        novy.setName(nick);
+        novy.setTime((int)cas);
+        PlayerRepository pr = new PlayerRepository(getApplication());
+        pr.insert(novy);
         startActivity(intent);
     }
 }

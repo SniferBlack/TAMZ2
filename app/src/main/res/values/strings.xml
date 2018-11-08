@@ -33,4 +33,7 @@
     <string name="vyhra_zprava">Prosím vyplň svůj nick a pod ním se uloží tvoje skóre do výsledků.</string>
     <string name="napis_nick">Napiš nick</string>
     <string name="domu">Zpět do hlavního menu</string>
+
+    <string name="music_title">Music</string>
+    <string name="music_summary">Hrát muziku na pozadí</string>
 </resources>

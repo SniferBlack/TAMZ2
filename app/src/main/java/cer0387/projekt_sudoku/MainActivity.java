@@ -111,4 +111,5 @@ public class MainActivity extends Activity {
         Toast.makeText(getApplicationContext(), "Konec", Toast.LENGTH_SHORT).show();
         finish();
     }
+
 }

@@ -293,5 +293,18 @@ public class Hra extends Activity {
         }
     };
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Prefs.getMusic(this))
+            Music.play(this, R.raw.riddle);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(Prefs.getMusic(this))
+            Music.stop(this);
+    }
 }
 

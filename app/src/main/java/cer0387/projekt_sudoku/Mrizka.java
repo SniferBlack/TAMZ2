@@ -66,6 +66,7 @@ public class Mrizka extends View {
 
 
         for (int i = 0; i < 9; i++) {
+
             canvas.drawLine(0, i * vyska, getWidth(), i * vyska, vnitrniMrizka);
             canvas.drawLine(0, i * vyska + 1, getWidth(), i * vyska + 1, ctverceMrizka);
 
@@ -77,9 +78,13 @@ public class Mrizka extends View {
             if (i % 3 != 0)
                 continue;
             canvas.drawLine(0, i * vyska, getWidth(), i * vyska, ctverceMrizka);
+            if(i!=0)
+            canvas.drawRect(0,i * vyska-5,sirka*9f,i * vyska + 5,ctverceMrizka);
             canvas.drawLine(0, i * vyska + 1, getWidth(), i * vyska + 1, ctverceMrizka);
 
             canvas.drawLine(i * sirka, 0, i * sirka, getHeight(), ctverceMrizka);
+            if(i!=0)
+            canvas.drawRect(i*sirka-5,0,i*sirka+5,vyska *9f,ctverceMrizka);
             canvas.drawLine(i * sirka + 1, 0, i * sirka + 1, getHeight(), ctverceMrizka);
         }
 

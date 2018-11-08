@@ -20,17 +20,23 @@ public class Vysledky extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vysledky);
 
+        /*
         long cas = getIntent().getLongExtra("cas", -1);
         String nick = getIntent().getStringExtra("nick");
         if(cas!=-1)
         {
             Toast.makeText(getApplicationContext(), "Nick: "+nick+", skore: "+cas, Toast.LENGTH_LONG).show();
         }
-
-        Vysledek novy = new Vysledek(nick,cas);
+        */
         ArrayList<Vysledek> vysledky = new ArrayList<Vysledek>();
-        vysledky.add(novy);
-
+        PlayerRepository pr = new PlayerRepository(getApplication());
+        Vysledek item;
+        List<Player> list = pr.getmAllPlayers();
+        for (Player p: list) {
+            item = new Vysledek(p.getName(),p.getTime());
+            vysledky.add(item);
+        }
+        
         VysledekAdapter itemsAdapter = new VysledekAdapter(this, R.layout.list_item_vysledek, vysledky);
         ListView lv = (ListView)findViewById(R.id.listView1);
         lv.setAdapter(itemsAdapter);
