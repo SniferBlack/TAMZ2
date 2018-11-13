@@ -14,12 +14,13 @@ public class ZapsatSkore extends Activity {
     private String nick;
     private long cas;
     TextView vypis_skore;
+    PlayerRepository playerRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zapsat_skore);
-
+        playerRepository = new PlayerRepository(getApplication());
         long getCas = getIntent().getLongExtra("cas", -1);
         if(getCas==-1)
         {
@@ -44,8 +45,8 @@ public class ZapsatSkore extends Activity {
         Player novy = new Player();
         novy.setName(nick);
         novy.setTime((int)cas);
-        PlayerRepository pr = new PlayerRepository(getApplication());
-        pr.insert(novy);
+
+        playerRepository.insert(novy);
         startActivity(intent);
     }
 }

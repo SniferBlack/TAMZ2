@@ -30,6 +30,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PlayerRepository pr = new PlayerRepository(getApplication());
+        pr.deleteAll();
+
         mySharedHra = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         Hra = mySharedHra.getBoolean("hra",false);
 
@@ -109,7 +112,7 @@ public class MainActivity extends Activity {
 
     public void onKonecButtonClicked(View view) {
         Toast.makeText(getApplicationContext(), "Konec", Toast.LENGTH_SHORT).show();
-        finish();
+        finishAffinity();
     }
 
 }

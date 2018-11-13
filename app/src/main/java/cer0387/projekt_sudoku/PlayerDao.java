@@ -20,4 +20,7 @@ public interface PlayerDao {
     void update(Player player);
     @Delete
     void delete(Player player);
+
+    @Query("DELETE FROM player")
+    void deleteAll();
 }

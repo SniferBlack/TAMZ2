@@ -15,6 +15,10 @@ public class PlayerRepository {
         mAllPlayers = mPlayerDao.getAll();
     }
 
+    public void deleteAll(){
+        mPlayerDao.deleteAll();
+    }
+
     List<Player> getmAllPlayers()
     {
         return mAllPlayers;
