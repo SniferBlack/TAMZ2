@@ -30,8 +30,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PlayerRepository pr = new PlayerRepository(getApplication());
-        pr.deleteAll();
+        //PlayerRepository pr = new PlayerRepository(getApplication());
+        //pr.deleteAll();
 
         mySharedHra = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         Hra = mySharedHra.getBoolean("hra",false);
