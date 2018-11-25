@@ -14,6 +14,7 @@ public class ZapsatSkore extends Activity {
     private String nick;
     private long cas;
     TextView vypis_skore;
+    TextView empty;
     PlayerRepository playerRepository;
 
     @Override
@@ -38,15 +39,23 @@ public class ZapsatSkore extends Activity {
     public void onPokracovatButtonClicked(View view) {
         editTextViewNick=findViewById(R.id.editText);
         nick = editTextViewNick.getText().toString();
-        Toast.makeText(getApplicationContext(), "Pokracujes do vysledku...", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Vysledky.class);
-        /*intent.putExtra("nick", nick);
-        intent.putExtra("cas", cas);*/
-        Player novy = new Player();
-        novy.setName(nick);
-        novy.setTime((int)cas);
+        if(nick.isEmpty())
+        {
+            empty=findViewById(R.id.textView6);
+            empty.setText("Musis zadat nějaké jméno.");
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Pokracujes do vysledku...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Vysledky.class);
+            /*intent.putExtra("nick", nick);
+            intent.putExtra("cas", cas);*/
+            Player novy = new Player();
+            novy.setName(nick);
+            novy.setTime((int)cas);
 
-        playerRepository.insert(novy);
-        startActivity(intent);
+            playerRepository.insert(novy);
+            startActivity(intent);
+        }
     }
 }

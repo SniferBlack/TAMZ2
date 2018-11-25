@@ -10,7 +10,7 @@ import java.util.List;
 
 @Dao
 public interface PlayerDao {
-    @Query("Select * From player")
+    @Query("Select * From player ORDER BY time")
     List<Player> getAll();
     @Query("Select * From player Where id=(:playerId)")
     Player findOneById(int playerId);
